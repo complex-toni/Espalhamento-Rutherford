@@ -1,0 +1,9 @@
+Proximos passos do codigo
+- Criar uma funcao forca eletromagnetica
+- Pensar numa escala de tempo e em como sera a interacao
+- Primeiro modelar a interação das particulas alpha com um unico atomo de Ouro, 
+        - Varrendo o parametro de impacto
+        - varrer uma distancia vertical entre o centro de massa do atomo e do feixe de partículas (uma, no caso)
+- Depois fazer o mesmo com uma camada de atomos
+- Determinar as escalas de tempo e de distância para a integração numérica.
+- No final deveremos ter um gráfico de posição (bidimensional) de partículas por tempo.
