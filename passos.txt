@@ -1,9 +1,24 @@
 Proximos passos do codigo
-- Criar uma funcao forca eletromagnetica
-- Pensar numa escala de tempo e em como sera a interacao
-- Primeiro modelar a interação das particulas alpha com um unico atomo de Ouro, 
+- Criar uma função forca eletromagnética
+- Pensar numa escala de tempo e em como será a interação
+- Primeiro modelar a interação das partículas alpha com um único átomo de Ouro, 
         - Varrendo o parametro de impacto
         - varrer uma distancia vertical entre o centro de massa do atomo e do feixe de partículas (uma, no caso)
 - Depois fazer o mesmo com uma camada de atomos
 - Determinar as escalas de tempo e de distância para a integração numérica.
 - No final deveremos ter um gráfico de posição (bidimensional) de partículas por tempo.
+
+###################################################
+Dúvidas:
+- o que é N na linha 15?
+- Ja nao tem a funcao pra força?
+###################################################
+
+#Etapas a implementar no código
+        # 1 - Criar funções para a força eletromagnética;
+        # 2 - Setar inicialmente as posições e momentum das partículas alfa e posição do nucleo de ouro (definir se será feito com ouro)
+        # 3 - Atualizar a posição devido a interação;
+        # 4 - Pensar sobre as posições do "anteparo/medidores" - caso seja esférico podemos fazer uma comparação com os resultados reais de Rutherford
+        # 5 - Criar um histograma para as particulas espalhadas;
+        # 6 -  Criar um gráfico com uma coleção de trajetórias; (estatistica - milhares ou dezenas de milhares de runs);
+        # 7 - Criar uma função força eletrica para usar no caso de um cristal de ouro.
