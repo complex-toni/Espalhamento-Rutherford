@@ -6,19 +6,43 @@ function dist_bidimensional(z_1, y_1)
     return dist_bidimensional
 end
 
-function EDO_diferencas_finitas_2D(matriz, parametro, dt)
-    distancia_cubo = dist_bidimensional(matriz[1, parametro -1], matriz[2, parametro -1])^3
-    posicao_z = matriz[1, parametro -1]+ matriz[3, parametro -1]*dt
-    velocidade_z = matriz[3, parametro -1]+ (constante/distancia_cubo)*matriz[1, parametro -1]*dt
-    posicao_y = matriz[2, parametro -1]+ matriz[4, parametro -1]*dt
-    velocidade_y = matriz[4, parametro -1]+ (constante/distancia_cubo)*matriz[2, parametro -1]*dt
-    return posicao_z, posicao_y, velocidade_z, velocidade_y
-end
-
 
 # Função que calcula o módulo da força elétrica entre a partícula alfa e o núcleo a uma certa distância
-function modulo_forca_eletrica_nucleo_pAlfa(q_nucleo, distancia)
-    constante = 1/(4*π*e0)
-    forca = constante*(2*q_nucleo*e^2)/(distancia^2)
+function modulo_forca_eletrica_nucleo_pAlfa(distancia)
+    k = 1/(4*π*e0)
+    q_nucleo = N_atomico * -carga_eletron
+    forca = k * (2 * q_nucleo * carga_eletron)/(distancia^2)
     return forca
 end
+
+
+function atualizar(matriz, ti, dt)
+    zi, yi, vzi, vyi = matriz[1,ti], matriz[2,ti], matriz[3,ti], matriz[4,ti]
+    r = dist_bidimensional(zi, yi)
+
+    # evitar singularidade na força em r=0
+    if r < 1e-15
+        r=1e-15
+    end
+    
+    # calcular a aceleração
+    F = modulo_forca_eletrica_nucleo_pAlfa(r)
+    azi = (F * zi) / (m_alfa * r)
+    ayi = (F * yi) / (m_alfa * r)
+
+    # atualizar, de fato
+    z = zi + vzi * dt
+    y = yi + vyi * dt
+    vz = vzi + azi * dt
+    vy = vyi + ayi * dt
+
+    matriz[1, ti+1] = z
+    matriz[2, ti+1] = y
+    matriz[3, ti+1] = vz
+    matriz[4, ti+1] = vy
+
+    return matriz
+
+end    
+
+

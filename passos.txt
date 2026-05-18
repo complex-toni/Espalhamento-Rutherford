@@ -10,8 +10,7 @@ Proximos passos do codigo
 
 ###################################################
 Dúvidas:
-- o que é N na linha 15?
-- Ja nao tem a funcao pra força?
+
 ###################################################
 
 #Etapas a implementar no código
@@ -20,5 +19,5 @@ Dúvidas:
         # 3 - Atualizar a posição devido a interação;
         # 4 - Pensar sobre as posições do "anteparo/medidores" - caso seja esférico podemos fazer uma comparação com os resultados reais de Rutherford
         # 5 - Criar um histograma para as particulas espalhadas;
-        # 6 -  Criar um gráfico com uma coleção de trajetórias; (estatistica - milhares ou dezenas de milhares de runs);
+        # 6 - Criar um gráfico com uma coleção de trajetórias; (estatistica - milhares ou dezenas de milhares de runs);
         # 7 - Criar uma função força eletrica para usar no caso de um cristal de ouro.
