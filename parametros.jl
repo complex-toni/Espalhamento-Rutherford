@@ -8,13 +8,13 @@ m_alfa::Float64 = 6.645 # Massa da partícula alfa em kg * 10^-27 kg
 e0::Float64 = 8.854 # Coeficiente de permissividade elétrica do vácuo - 10^-12 [C^2/(N*m^2)]
 N_atomico::Int64 = 79 #Número atômico do ouro
 carga_eletron::Float64 = 1.602 # Carga elementar em C * 10^-19
-N::Int64::Int64 = 3000 # Número de passos a serem calculados na simulacao.
-v0_z:: Float64 =  √((2*K0)/m_alfa) # Velocidade inicial da partícula alfa, na direção z (inicialmente, só há velocidade na direção z) - ordem de 10^6 (m/s)
-v0_y ::Float64 = 0.0 # Velocidade inicial da partícula alfa, na direção y (inicialmente, só há velocidade na direção z)
+N::Int64 = 10 # Número de passos a serem calculados na simulacao.
+v0_z::Float64 =  √((2*K0)/m_alfa) # Velocidade inicial da partícula alfa, na direção z (inicialmente, só há velocidade na direção z) - ordem de 10^6 (m/s)
+v0_y::Float64 = 0.0 # Velocidade inicial da partícula alfa, na direção y (inicialmente, só há velocidade na direção z)
 u = Matrix{Float64}(undef, 4, N) # Matrix com as posições e velocidades bidimensionais via método da EDO por diferenças finitas
 q_alfa::Float64 = 2*carga_eletron
 q_nucleo:: Float64 = N_atomico*carga_eletron
-k::Float64 = (q_alfa * q_nucleo)/(4πe0)
+k::Float64 = (q_alfa * q_nucleo)/(4*π*e0)
 
 #Inicialização dos parâmetros
 u[1, 1] = z0 # Condição inicial para a componente z da posição da particula alfa
@@ -31,12 +31,9 @@ parametros_impacto = [
          5e-14
     ]
 
-# definir dicionário para os tipos de simulação
-tipo_dict = Dict(
-        1 => "único átomo",
-        2 => "malha atômica"
-)
+#parametros_impacto = [-1e-9]
 
-# definir o tipo de simulação
-tipo_sim = tipo_dict[1]  # mudar apenas o número
-
+# definir a geometria da malha atômica (input)
+n_atomos_por_camada = 43
+n_camadas = 1
+distancia_entre_atomos = 1e-10 # 1 Angstrom

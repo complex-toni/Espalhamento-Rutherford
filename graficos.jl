@@ -47,7 +47,7 @@ function plotar_trajetorias(matriz, parametros_impacto)
 end
     
 
-function plotar_trajetorias_(matriz, parametros_impacto, matriz_atomos)
+function plotar_trajetorias_(matriz, parametros_impacto, malha)
     # criar plot
     plt = plot(
         xlabel = "z",
@@ -58,10 +58,10 @@ function plotar_trajetorias_(matriz, parametros_impacto, matriz_atomos)
 
     cores = [:blue, :red, :cyan, :green, :yellow, :purple]
 
-    # guardar os os angulos de impacto
+    # lista de tuplas dos angulos de esapalhamento
     lista_angulos = zeros(0)
 
-    for p in range(1, size(parametros_impacto)[1])
+    for p in range(1, size(parametros_impacto)[1])   
         # extrair b da lista de parametros
         b = parametros_impacto[p]
         matriz[2,1] = b  # mudar y0 para b
@@ -70,12 +70,13 @@ function plotar_trajetorias_(matriz, parametros_impacto, matriz_atomos)
         z_list, y_list = zeros(0), zeros(0)
 
         for t in range(2, N-1)
-            matriz = atualizar(matriz, t, dt)
+            matriz = atualizar(matriz, t, dt, malha)
             append!(z_list, matriz[1, t])
             append!(y_list, matriz[3, t])
         end
-
-        append!(lista_ultimas_posicoes, (p, angulo_espalhamento(matriz)))
+        
+        # guardar os os parametros de impacto junto aos angulos de espalhamento
+        append!(lista_angulos, (p, angulo_espalhamento(matriz)))
 
         # plotar a trajetória
         plot!(
@@ -91,7 +92,7 @@ function plotar_trajetorias_(matriz, parametros_impacto, matriz_atomos)
     # mostrar o gráfico final
     display(plt)
 
-    return lista_angulos
+    #return lista_angulos
 end
 
 

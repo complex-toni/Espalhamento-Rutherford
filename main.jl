@@ -8,16 +8,10 @@ include("graficos.jl")
 
 println("Rodando simulação...")
 
-
+# criar malha
+malha = malha_atomica((n_atomos_por_camada, n_camadas), distancia_entre_atomos)
 # verificar as posicoes atomicas na malha
-malha = malha_atomica((3,3),1)
 mostrar_malha(malha)
 
-# rodar a rotina dependendo do tipo de espalhamento
-if tipo_sim == "único átomo"
-    #plotar_trajetorias(u, parametros_impacto)
-elseif tipo_sim == "malha atômica"
-    pass
-else
-    println("Esta simulação não existe.")
-end
+# plotar as trajetórias e o histograma dos angulos de espalhamento
+plotar_trajetorias_(u, parametros_impacto, malha)

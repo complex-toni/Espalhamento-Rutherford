@@ -1,35 +1,46 @@
 # funcoes uteis para a dinamica do problema
 # Como iremos resolver uma EDO de segunda ordem na posição, por conta da lei fundamental da dinâmica do problema:
 # Função que calcula a distancia entre dois pontos num sistema de coordendas euclidiano bidimensional
-function dist_bidimensional_(nuc_z, z_1, nuc_y, y_1)
-    distz = nuc_z - z_1
-    disty = nuc_y - y_1
+function dist_bidimensional(z, y, nuc_z, nuc_y)
+    distz = nuc_z - z
+    disty = nuc_y - y
     dist_bidimensional = √(distz^2 + disty^2)
     return dist_bidimensional
 end
 
 
 # Função que calcula o módulo da força elétrica entre a partícula alfa e o núcleo a uma certa distância
-function modulo_forca_eletrica_nucleo_pAlfa(distancia)
-    forca = k * (distancia^2)
-    forca = k * (distancia^2)
-    return forca
+function modulo_forca_eletrica_nucleo_pAlfa(z, y, malha)
+    az, ay = 0.0, 0.0  # componentes da aceleração
+
+    for i in 1:size(malha)[1]
+        for j in 1:size(malha)[2]
+            nuc_z, nuc_y = malha[i, j]
+            r = dist_bidimensional(z, y, nuc_z, nuc_y)
+            
+            # evitar singularidade na força em r=0
+            if r < 1e-12
+                r = 1e-12
+            end
+             
+            # calcular o modulo da força
+            F = k * 1/(r^2)
+
+            # somar as componentes da aceleração
+            az += (F * (z - nuc_z)) / (m_alfa * r)
+            ay += (F * (y - nuc_y)) / (m_alfa * r)
+        end
+    end
+
+    return az, ay
 end
 
 
-function atualizar(matriz, ti, dt)
+function atualizar(matriz, ti, dt, malha)
     zi, yi, vzi, vyi = matriz[1,ti], matriz[2,ti], matriz[3,ti], matriz[4,ti]
-    r = dist_bidimensional(zi, yi)
 
-    # evitar singularidade na força em r=0
-    if r < 1e-12
-        r=1e-12
-    end
-    
     # calcular a aceleração
-    F = modulo_forca_eletrica_nucleo_pAlfa(r)
-    azi = (F * zi) / (m_alfa * r)
-    ayi = (F * yi) / (m_alfa * r)
+    azi, ayi = modulo_forca_eletrica_nucleo_pAlfa(zi, yi, malha)
 
     # atualizar, de fato
     z = zi + vzi * dt * 1e-9
@@ -49,17 +60,19 @@ end
 
 # função para calcular o angulo de espalhamento a partir da matriz de estado
 function angulo_espalhamento(matriz)
-    zf::Float64 = matriz[1, N]
-    yf::Float64 = matriz[2, N]
-    ang_esp::Float64 = rad2deg(yf/zf)
+    zf = matriz[1, N]
+    yf = matriz[2, N]
+    ang_esp = atan(yf/zf)
+    ang_esp = rad2deg(ang_esp)
     return ang_esp
 end
 
 
 function malha_atomica(shape::Tuple{Int,Int}, h)
     # a camada tem que ter simétrica por aproximação, portanto ímpar
-    if isodd(shape[2]) == false
+    if isodd(shape[1]) == false
         println("Erro! A camada tem que ter simétrica por aproximação, portanto ímpar.")
+        return
     end
 
     ny, nz = shape   # rows, columns
