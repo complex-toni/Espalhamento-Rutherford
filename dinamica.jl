@@ -7,11 +7,17 @@ function dist_bidimensional(z_1, y_1)
 end
 
 
+function dist_bidimensional_(nuc_z, z_1, nuc_y, y_1)
+    distz = nuc_z - z_1
+    disty = nuc_y - y_1
+    dist_bidimensional = √(distz^2 + disty^2)
+    return dist_bidimensional
+end
+
+
 # Função que calcula o módulo da força elétrica entre a partícula alfa e o núcleo a uma certa distância
 function modulo_forca_eletrica_nucleo_pAlfa(distancia)
-    k = 1/(4*π*e0)
-    q_nucleo = N_atomico * -carga_eletron
-    forca = k * (2 * q_nucleo * carga_eletron)/(distancia^2)
+    forca = k * (distancia^2)
     return forca
 end
 
