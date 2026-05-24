@@ -1,20 +1,20 @@
 # Parâmetros do problema
-t0::Float64 = 0.0 # início do interval temporal *Atentar/Verificar a escala de tempo típica do problema*
-tn::Float64 = 10.0 # final do interval temporal em *Atentar/Verificar a escala de tempo típica do problema*
-dt::Float64 = 0.05 # passo em s de discretização do interval [t0, t1]
-K0::Float64 = 0.0 # Energia cinética inicial da particula alfa *Em escrever em J*
+dt::Float64 = 300 # passo em fs.
+K0::Float64 = 1.602 # Energia cinética inicial da particula alfa - 10^-13 J (Equivalente a 1 MeV)
 # Iremos assumir que o núcleo encontra-se na origem do sistema de coordenadas e tem posições fixas.
-z0::Float64 = 0.0 # Componente z da posição inicial do núcleo (a t = t0) em m - Assumimos eixo z paralelo ao momentum inical da partícula
-y0::Float64 = 0.0 # Componente y da posição inicial do núcleo (a t = t0) em m
-m_alfa::Float64 = 6.645 # Massa da partícula alfa em kg * 10^-27
-e0::Float64 = 8.854 # Coeficiente de permissividade elétrica do vácuo - C^2/(N*m^2)
+z0::Float64 = 0.0 # Componente z da posição inicial do núcleo (a t = t0) - 10^-3 m (1 mm) - Assumimos eixo z paralelo ao momentum inical da partícula
+y0::Float64 = 0.0 # Componente y da posição inicial do núcleo (a t = t0) - 10^-3 m (1 mm)
+m_alfa::Float64 = 6.645 # Massa da partícula alfa em kg * 10^-27 kg
+e0::Float64 = 8.854 # Coeficiente de permissividade elétrica do vácuo - 10^-12 [C^2/(N*m^2)]
 N_atomico::Int64 = 79 #Número atômico do ouro
-carga_eletron::Float64 = -1.602 # Carga elementar em C * 10^-19
-N::Int64 = Int64(round((tn - t0)/dt + 1)) # Quantidade de passos a serem dados no programa
-v0_z = √((2*K0)/m_alfa) # Velocidade inicial da partícula alfa, na direção z (inicialmente, só há velocidade na direção z)
+carga_eletron::Float64 = 1.602 # Carga elementar em C * 10^-19
+N::Int64::Int64 = 3000 # Número de passos a serem calculados na simulacao.
+v0_z:: Float64 =  √((2*K0)/m_alfa) # Velocidade inicial da partícula alfa, na direção z (inicialmente, só há velocidade na direção z) - ordem de 10^6 (m/s)
 v0_y ::Float64 = 0.0 # Velocidade inicial da partícula alfa, na direção y (inicialmente, só há velocidade na direção z)
 u = Matrix{Float64}(undef, 4, N) # Matrix com as posições e velocidades bidimensionais via método da EDO por diferenças finitas
-constante = (2*N_atomico*carga_eletron^2)/(4*π*e0)
+q_alfa::Float64 = 2*carga_eletron
+q_nucleo:: Float64 = N_atomico*carga_eletron
+k::Float64 = (q_alfa * q_nucleo)/(4πe0)
 
 #Inicialização dos parâmetros
 u[1, 1] = z0 # Condição inicial para a componente z da posição da particula alfa
