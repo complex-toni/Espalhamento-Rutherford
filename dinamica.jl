@@ -46,3 +46,7 @@ function atualizar(matriz, ti, dt)
 end    
 
 
+# função para calcular o angulo de espalhamento a partir da matriz de estado
+function angulo_espalhamento(matriz)
+    
+end

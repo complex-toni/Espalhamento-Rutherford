@@ -5,7 +5,14 @@ include("parametros.jl")
 include("dinamica.jl")
 include("graficos.jl")
 
-println(dt)
-println(m_alfa)
 
-plotar_trajetorias(u, parametros_impacto)
+println("Rodando simulação...")
+
+# rodar a rotina dependendo do tipo de espalhamento
+if tipo_sim == "único átomo"
+    plotar_trajetorias(u, parametros_impacto)
+elseif tipo_sim == "malha atômica"
+    pass
+else
+    println("Esta simulação não existe.")
+end

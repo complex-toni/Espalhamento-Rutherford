@@ -30,3 +30,12 @@ parametros_impacto = [
          3e-14,
          5e-14
     ]
+
+# definir dicionário para os tipos de simulação
+tipo_dict = Dict(
+        1 => "único átomo",
+        2 => "malha atômica"
+)
+
+# definir o tipo de simulação
+tipo_sim = tipo_dict[1]  # mudar apenas o número
