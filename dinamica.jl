@@ -7,7 +7,7 @@ function dist_bidimensional(z_1, y_1)
 end
 
 
-function dist_bidimensional(nuc_z, z_1, nuc_y, y_1)
+function dist_bidimensional_(nuc_z, z_1, nuc_y, y_1)
     distz = nuc_z - z_1
     disty = nuc_y - y_1
     dist_bidimensional = √(distz^2 + disty^2)
@@ -17,9 +17,7 @@ end
 
 # Função que calcula o módulo da força elétrica entre a partícula alfa e o núcleo a uma certa distância
 function modulo_forca_eletrica_nucleo_pAlfa(distancia)
-    k = 1/(4*π*e0)
-    q_nucleo = N_atomico * -carga_eletron
-    forca = k * (2 * q_nucleo * carga_eletron)/(distancia^2)
+    forca = k * (distancia^2)
     return forca
 end
 
@@ -56,5 +54,32 @@ end
 
 # função para calcular o angulo de espalhamento a partir da matriz de estado
 function angulo_espalhamento(matriz)
-    
+    zf::Float64 = matriz[1, N]
+    yf::Float64 = matriz[2, N]
+    ang_esp::Float64 = rad2deg(yf/zf)
+    return ang_esp
+end
+
+
+function malha_atomica(shape::Tuple{Int,Int}, h)
+    # a camada tem que ter simétrica por aproximação, portanto ímpar
+    if isodd(shape[2]) == false
+        println("Erro! A camada tem que ter simétrica por aproximação, portanto ímpar.")
+    end
+
+    ny, nz = shape   # rows, columns
+
+    z = collect(0:h:(nz-1)*h)
+    y = ((ny - 1)/2 .- (0:ny-1)) .* h
+
+    malha = Matrix{Tuple{Float64,Float64}}(undef, ny, nz)
+
+    for i in 1:ny
+        for j in 1:nz
+            malha[i, j] = (z[j], y[i])
+        end
+    end
+
+    return malha
+
 end
