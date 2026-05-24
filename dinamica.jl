@@ -27,8 +27,8 @@ function atualizar(matriz, ti, dt)
     r = dist_bidimensional(zi, yi)
 
     # evitar singularidade na força em r=0
-    if r < 1e-15
-        r=1e-15
+    if r < 1e-12
+        r=1e-12
     end
     
     # calcular a aceleração
