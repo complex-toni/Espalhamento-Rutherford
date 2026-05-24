@@ -18,6 +18,7 @@ end
 # Função que calcula o módulo da força elétrica entre a partícula alfa e o núcleo a uma certa distância
 function modulo_forca_eletrica_nucleo_pAlfa(distancia)
     forca = k * (distancia^2)
+    forca = k * (distancia^2)
     return forca
 end
 
@@ -27,8 +28,8 @@ function atualizar(matriz, ti, dt)
     r = dist_bidimensional(zi, yi)
 
     # evitar singularidade na força em r=0
-    if r < 1e-15
-        r=1e-15
+    if r < 1e-12
+        r=1e-12
     end
     
     # calcular a aceleração
@@ -37,10 +38,10 @@ function atualizar(matriz, ti, dt)
     ayi = (F * yi) / (m_alfa * r)
 
     # atualizar, de fato
-    z = zi + vzi * dt
-    y = yi + vyi * dt
-    vz = vzi + azi * dt
-    vy = vyi + ayi * dt
+    z = zi + vzi * dt * 1e-9
+    y = yi + vyi * dt * 1e-9
+    vz = vzi + azi * dt * 1e11
+    vy = vyi + ayi * dt * 1e11
 
     matriz[1, ti+1] = z
     matriz[2, ti+1] = y
