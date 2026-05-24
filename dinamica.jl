@@ -1,12 +1,6 @@
 # funcoes uteis para a dinamica do problema
 # Como iremos resolver uma EDO de segunda ordem na posição, por conta da lei fundamental da dinâmica do problema:
 # Função que calcula a distancia entre dois pontos num sistema de coordendas euclidiano bidimensional
-function dist_bidimensional(z_1, y_1)
-    dist_bidimensional = √(z_1^2 + y_1^2)
-    return dist_bidimensional
-end
-
-
 function dist_bidimensional_(nuc_z, z_1, nuc_y, y_1)
     distz = nuc_z - z_1
     disty = nuc_y - y_1
