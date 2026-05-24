@@ -37,10 +37,10 @@ function atualizar(matriz, ti, dt)
     ayi = (F * yi) / (m_alfa * r)
 
     # atualizar, de fato
-    z = zi + vzi * dt
-    y = yi + vyi * dt
-    vz = vzi + azi * dt
-    vy = vyi + ayi * dt
+    z = zi + vzi * dt * 1e-9
+    y = yi + vyi * dt * 1e-9
+    vz = vzi + azi * dt * 1e11
+    vy = vyi + ayi * dt * 1e11
 
     matriz[1, ti+1] = z
     matriz[2, ti+1] = y
