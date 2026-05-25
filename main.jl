@@ -15,3 +15,11 @@ mostrar_malha(malha)
 
 # plotar as trajetórias e o histograma dos angulos de espalhamento
 plotar_trajetorias_(u, parametros_impacto, malha)
+
+plotar_z(u)
+plotar_y(u)
+plotar_vz(u)
+plotar_vy(u)
+
+# limpar terminal:
+# print("\033c")w

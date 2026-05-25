@@ -19,12 +19,12 @@ function modulo_forca_eletrica_nucleo_pAlfa(z, y, malha)
             r = dist_bidimensional(z, y, nuc_z, nuc_y)
             
             # evitar singularidade na força em r=0
-            if r < 1e-12
-                r = 1e-12
+            if r < 1e-15
+                r = 1e-15
             end
              
             # calcular o modulo da força
-            F = k * 1/(r^2)
+            F = k * (1/r^2)
 
             # somar as componentes da aceleração
             az += (F * (z - nuc_z)) / (m_alfa * r)
@@ -32,26 +32,37 @@ function modulo_forca_eletrica_nucleo_pAlfa(z, y, malha)
         end
     end
 
+    # println("az = $(az), ay = $(ay)")
     return az, ay
 end
 
 
-function atualizar(matriz, ti, dt, malha)
+function atualizar(matriz, ti, malha)
     zi, yi, vzi, vyi = matriz[1,ti], matriz[2,ti], matriz[3,ti], matriz[4,ti]
 
     # calcular a aceleração
     azi, ayi = modulo_forca_eletrica_nucleo_pAlfa(zi, yi, malha)
 
+    if ti==1
+        println("posição inicial: z = $(zi), y = $(yi)")
+        println("velocidade inicial: vz = $(vzi), vy = $(vyi)")
+        println("aceleração inicial: az = $(azi), ay = $(ayi)")
+    end
+
     # atualizar, de fato
-    z = zi + vzi * dt * 1e-9
-    y = yi + vyi * dt * 1e-9
-    vz = vzi + azi * dt * 1e11
-    vy = vyi + ayi * dt * 1e11
+    z = zi + (vzi * dt)
+    y = yi + (vyi * dt)
+    vz = vzi + (azi * dt)
+    vy = vyi + (ayi * dt)
 
     matriz[1, ti+1] = z
     matriz[2, ti+1] = y
     matriz[3, ti+1] = vz
     matriz[4, ti+1] = vy
+
+    # println("posição em t+1: z = $(z), y = $(y), velocidade em t+1: vz = $(vz), vy = $(vy)")
+    println("[z = $(z), y = $(y)], [vz = $(vz), vy = $(vy)], [az = $(azi), ay = $(ayi)]")
+    # println("velocidade em t+1: vz = $(vz), vy = $(vy)")
 
     return matriz
 
