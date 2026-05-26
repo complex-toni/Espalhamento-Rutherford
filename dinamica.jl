@@ -59,10 +59,23 @@ function atualizar(matriz, ti, malha)
     matriz[2, ti+1] = y
     matriz[3, ti+1] = vz
     matriz[4, ti+1] = vy
+    
+    # adicionar ao arquivo de saída (fica ruim com o t junto)
+    #info = "[t = $(ti*dt)], z = $(z), y = $(y)], [vz = $(vz), vy = $(vy)], [az = $(azi), ay = $(ayi)]"
+    info = "[z = $(z), y = $(y)], [vz = $(vz), vy = $(vy)], [az = $(azi), ay = $(ayi)]"
+    # println(info)
+    append!(linhas, [info])
 
-    # println("posição em t+1: z = $(z), y = $(y), velocidade em t+1: vz = $(vz), vy = $(vy)")
-    println("[z = $(z), y = $(y)], [vz = $(vz), vy = $(vy)], [az = $(azi), ay = $(ayi)]")
-    # println("velocidade em t+1: vz = $(vz), vy = $(vy)")
+    # adicionar ao dataframe
+    push!(df, (
+        t = ti*dt,
+        z = zi,
+        y = yi,
+        vz = vzi,
+        vy = vyi,
+        az = azi,
+        ay = ayi
+    ))
 
     return matriz
 

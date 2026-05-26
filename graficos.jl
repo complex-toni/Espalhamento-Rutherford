@@ -3,6 +3,11 @@ using Plots
 
 function histograma_angulos(lista_angulos)
 end
+
+
+function mostrar_malha(malha)
+    show(stdout, "text/plain", malha)
+end
     
 
 function plotar_trajetorias_(matriz, parametros_impacto, malha)
@@ -69,23 +74,75 @@ function plotar_trajetorias_(matriz, parametros_impacto, malha)
 end
 
 
-function mostrar_malha(malha)
-    show(stdout, "text/plain", malha)
+function plotar_z(matriz)
+    # criar plot
+    plt = plot(
+        xlabel = "t",
+        ylabel = "Posição em z (m)",
+        title = "z X t",
+        legend = true,
+        size=(800, 600)
+    )
+
+    # extrair as velocidades z e y da matriz
+    z_list = [i for i in matriz[1, :]]
+    t_list = [i*dt for i in 1:size(matriz)[2]]
+
+    # plotar as velocidades
+    plot!(
+        plt,
+        t_list,
+        z_list,
+        color=:blue,
+        label="Posição em z"
+    )
+
+    # mostrar o gráfico final
+    display(plt)
 end
+
+
+function plotar_y(matriz)
+    # criar plot
+    plt = plot(
+        xlabel = "t",
+        ylabel = "y (m)",
+        title = "y X t",
+        legend = true,
+        size=(800, 600)
+    )
+
+    # extrair as velocidades z e y da matriz
+    y_list = [i for i in matriz[2, :]]
+    t_list = [i*dt for i in 1:size(matriz)[2]]
+
+    # plotar as velocidades
+    plot!(
+        plt,
+        t_list,
+        y_list,
+        color=:red,
+        label="Posição em y"
+    )
+
+    # mostrar o gráfico final
+    display(plt)
+end
+
 
 function plotar_vz(matriz)
     # criar plot
     plt = plot(
         xlabel = "t",
         ylabel = "Velocidade em z (m/s)",
-        title = "Velocidade da partícula alfa ao longo do tempo",
+        title = "v_z X t",
         legend = true,
-        size=(1000, 600)
+        size=(800, 600),
     )
 
     # extrair as velocidades z e y da matriz
     vz_list = [i for i in matriz[3, :]]
-    t_list = [i for i in 1:size(matriz)[2]]
+    t_list = [i*dt for i in 1:size(matriz)[2]]
 
     # plotar as velocidades
     plot!(
@@ -105,14 +162,14 @@ function plotar_vy(matriz)
     plt = plot(
         xlabel = "t",
         ylabel = "Velocidade em y (m/s)",
-        title = "Velocidade da partícula alfa ao longo do tempo",
+        title = "v_y X t",
         legend = true,
-        size=(1000, 600)
+        size=(800, 600)
     )
 
     # extrair as velocidades z e y da matriz
     vy_list = [i for i in matriz[4, :]]
-    t_list = [i for i in 1:size(matriz)[2]]
+    t_list = [i*dt for i in 1:size(matriz)[2]]
 
     # plotar as velocidades
     plot!(
@@ -121,60 +178,6 @@ function plotar_vy(matriz)
         vy_list,
         color=:red,
         label="Velocidade em y"
-    )
-
-    # mostrar o gráfico final
-    display(plt)
-end
-
-function plotar_z(matriz)
-    # criar plot
-    plt = plot(
-        xlabel = "t",
-        ylabel = "Posição em z (m)",
-        title = "Posição da partícula alfa ao longo do tempo",
-        legend = true,
-        size=(1000, 600)
-    )
-
-    # extrair as velocidades z e y da matriz
-    z_list = [i for i in matriz[1, :]]
-    t_list = [i for i in 1:size(matriz)[2]]
-
-    # plotar as velocidades
-    plot!(
-        plt,
-        t_list,
-        z_list,
-        color=:blue,
-        label="Posição em z"
-    )
-
-    # mostrar o gráfico final
-    display(plt)
-end
-
-function plotar_y(matriz)
-    # criar plot
-    plt = plot(
-        xlabel = "t",
-        ylabel = "Posição em y (m)",
-        title = "Posição da partícula alfa ao longo do tempo",
-        legend = true,
-        size=(1000, 600)
-    )
-
-    # extrair as velocidades z e y da matriz
-    y_list = [i for i in matriz[2, :]]
-    t_list = [i for i in 1:size(matriz)[2]]
-
-    # plotar as velocidades
-    plot!(
-        plt,
-        t_list,
-        y_list,
-        color=:red,
-        label="Posição em y"
     )
 
     # mostrar o gráfico final

@@ -21,5 +21,15 @@ plotar_y(u)
 plotar_vz(u)
 plotar_vy(u)
 
+# gerar arquivo de saída
+open("saida.txt", "w") do f
+    for linha in linhas
+        write(f, linha * "\n")
+    end
+end
+
+# gerar arquivo de saída em formato csv
+CSV.write("saida.csv", df, delim=';')
+
 # limpar terminal:
-# print("\033c")w
+# print("\033c")
