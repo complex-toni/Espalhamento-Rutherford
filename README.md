@@ -17,4 +17,7 @@ Isso quer dizer que tanto os gráficos de energia quanto a saída em .csv não f
 
 ## Simulação de 1 núcleo:
 - - Os valores nas linhas 58 e 59 têm que ser mudados ambos para 1 e 1.   # 
+
+# Sugestões:
+- Criar um df pra cada parâmetro b e fazer os gráficos das energias desse modo, uma curva pra cada df.
   
