@@ -10,26 +10,40 @@ println("Rodando simulação...")
 
 # criar malha
 malha = malha_atomica((n_atomos_por_camada, n_camadas), distancia_entre_atomos)
-# verificar as posicoes atomicas na malha
-mostrar_malha(malha)
+#mostrar_malha(malha) # verificar as posicoes atomicas na malha
 
 # plotar as trajetórias e o histograma dos angulos de espalhamento
-plotar_trajetorias_(u, parametros_impacto, malha)
+angulos_espalhamento = plotar_trajetorias_(u, parametros_impacto, malha)
+histograma_angulos(angulos_espalhamento)
 
-plotar_z(u)
-plotar_y(u)
-plotar_vz(u)
-plotar_vy(u)
+#plotar_z(u)
+#plotar_y(u)
+#plotar_vz(u)
+#lotar_vy(u)
 
+println("Plotando energias...")
+plotar_energias(u)
+
+println("Exportando dados...")
 # gerar arquivo de saída
-open("saida.txt", "w") do f
-    for linha in linhas
-        write(f, linha * "\n")
+# open("output/saida.txt", "w") do f
+#     for linha in linhas
+#         write(f, linha * "\n")
+#     end
+# end
+
+# gerar arquivo de saída em formato csv
+# CSV.write("output/saida.csv", df, delim=';')
+
+# salvar angulos
+open("output/angulos.txt", "w") do f
+    write(f, "b;a\n")
+    for (p, a) in angulos_espalhamento
+        write(f, "$(p);$(a)\n")
     end
 end
 
-# gerar arquivo de saída em formato csv
-CSV.write("saida.csv", df, delim=';')
+println("Finalizado.")
 
 # limpar terminal:
 # print("\033c")
