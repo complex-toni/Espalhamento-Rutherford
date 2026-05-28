@@ -44,7 +44,7 @@ u[4, 1] = v0_y # Condição inicial para a componente y da velocidade da particu
 # gerar uma lista de parâmetros de impacto
 comeco = 0.200e-10
 fim = 0.000900e-10
-valores = 10
+valores = 500
 
 function gerar_parametros_impacto(comeco, fim, valores)
     parametros = [i for i in range(start=comeco, stop=fim, length=valores)]

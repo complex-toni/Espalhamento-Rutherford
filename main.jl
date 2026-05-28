@@ -21,8 +21,11 @@ histograma_angulos(angulos_espalhamento)
 #plotar_vz(u)
 #lotar_vy(u)
 
-println("Plotando energias...")
-plotar_energias(u)
+# plotar energias se for só uma partícula
+if valores ==1
+    println("Plotando energias...")
+    plotar_energias(u)
+end
 
 println("Exportando dados...")
 # gerar arquivo de saída

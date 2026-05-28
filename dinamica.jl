@@ -121,18 +121,20 @@ function atualizar(matriz, ti, malha)
     KEi = energia_cinetica(matriz, ti)
     Vi = energia_potencial(matriz, ti, malha)
 
-    # adicionar ao dataframe
-    push!(df, (
-        t = ti*dt,
-        z = zi,
-        y = yi,
-        vz = vzi,
-        vy = vyi,
-        az = azi,
-        ay = ayi,
-        KE = KEi,
-        V = Vi
-    ))
+    if valores == 1
+        # adicionar ao dataframe
+        push!(df, (
+            t = ti*dt,
+            z = zi,
+            y = yi,
+            vz = vzi,
+            vy = vyi,
+            az = azi,
+            ay = ayi,
+            KE = KEi,
+            V = Vi
+        ))
+    end
 
     return matriz
 
